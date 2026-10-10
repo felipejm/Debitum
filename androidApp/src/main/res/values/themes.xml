@@ -1,0 +1,7 @@
+<resources>
+    <style name="Theme.Debitum" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:colorAccent">#DD785D</item>
+        <item name="android:colorPrimary">#DD785D</item>
+        <item name="android:windowBackground">@android:color/white</item>
+    </style>
+</resources>

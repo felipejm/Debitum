@@ -1,0 +1,185 @@
+<!DOCTYPE html><html lang="pt-BR" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+<title>Minhas Contas - Confirmar Pagamento</title>
+<!-- Google Fonts: Plus Jakarta Sans -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS CDN with forms and container plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration -->
+<script data-purpose="tailwind-config">
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              plum: '#3A2E39',
+              'plum-dark': '#292028',
+              terracotta: '#DE7353',
+              'terracotta-hover': '#CC6344',
+              coral: '#F18260',
+              cream: '#FAF7F5',
+              surface: '#FFFFFF',
+              border: '#F1ECE8',
+              muted: '#8A8287',
+              success: '#2E8540'
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          boxShadow: {
+            sheet: '0 -10px 40px -10px rgba(41, 32, 40, 0.25)',
+            card: '0 4px 20px -2px rgba(41, 32, 40, 0.05)',
+            btn: '0 8px 24px -4px rgba(222, 115, 83, 0.35)',
+          }
+        }
+      }
+    };
+  </script>
+<!-- Custom CSS for specific mobile details -->
+<style data-purpose="custom-styling">
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+    
+    /* Hide scrollbar for clean horizontal option lists */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+</head>
+<body class="bg-[#1C161C] flex justify-center items-center min-h-screen p-0 sm:p-4 text-[#2B232A] antialiased select-none">
+<!-- Mobile Viewport Container (iOS / Android proportions) -->
+<div class="relative w-full max-w-[412px] h-[100dvh] max-h-[892px] bg-[#FAF8F5] overflow-hidden sm:rounded-[44px] shadow-2xl flex flex-col justify-end">
+<!-- BEGIN: BlurredBackgroundScrim -->
+<!-- Contextual background showing the current bill card in blurred plum theme -->
+<div aria-hidden="true" class="absolute inset-0 z-0 bg-[#ECE7E3] overflow-hidden filter blur-[6px] opacity-75 scale-105 pointer-events-none transition-all">
+<!-- Top Bar Mock -->
+<div class="pt-8 px-6 flex justify-between items-center opacity-40">
+<div class="w-8 h-8 rounded-full bg-brand-plum/20"></div>
+<div class="w-8 h-8 rounded-full bg-brand-plum/20"></div>
+</div>
+<!-- Overview Card Mock in Plum Organic style -->
+<div class="mx-5 mt-6 p-6 rounded-[32px] bg-[#352A36] text-white shadow-xl relative overflow-hidden">
+<div class="flex justify-between items-center mb-6">
+<span class="text-xs uppercase tracking-wider text-white/50 font-semibold">NOVEMBRO</span>
+<div class="w-6 h-6 rounded-full border border-white/20"></div>
+</div>
+<p class="text-xs text-white/60 mb-1">Total a pagar</p>
+<p class="text-3xl font-bold tracking-tight text-white mb-4">R$ 1.840,50</p>
+<span class="inline-block px-3 py-1 bg-white/10 rounded-full text-xs text-[#E89279] font-medium">3 contas pendentes</span>
+</div>
+<!-- Transactions list peek -->
+<div class="px-5 mt-6 space-y-3">
+<div class="p-4 bg-white/80 rounded-2xl flex items-center justify-between">
+<div class="flex items-center space-x-3">
+<div class="w-10 h-10 rounded-xl bg-orange-100 flex items-center justify-center font-bold text-orange-600">AC</div>
+<div>
+<p class="font-bold text-sm">Aluguel &amp; Condomínio</p>
+<p class="text-xs text-gray-400">10 Nov, 2024</p>
+</div>
+</div>
+<span class="font-bold text-sm">R$ 1.200,00</span>
+</div>
+</div>
+</div>
+<!-- END: BlurredBackgroundScrim -->
+<!-- Dim Backdrop Overlay -->
+<div aria-label="Overlay de fundo" class="absolute inset-0 bg-[#292028]/40 backdrop-blur-[4px] z-10"></div>
+<!-- BEGIN: BottomSheetModal -->
+<div aria-labelledby="modal-title" class="relative z-20 w-full bg-[#FAF9F7] rounded-t-[36px] shadow-sheet border-t border-white/60 flex flex-col max-h-[92dvh] animate-in slide-in-from-bottom duration-300" data-purpose="modal-bottom-sheet" role="dialog">
+<!-- Drag Handle Indicator -->
+<div class="pt-3 pb-2 flex justify-center items-center">
+<div class="w-12 h-1.5 rounded-full bg-[#D4CBC6] cursor-grab"></div>
+</div>
+<!-- Header with Close Button -->
+<header class="px-6 pt-1 pb-4 flex justify-between items-start">
+<div class="pr-3">
+<h1 class="text-2xl font-extrabold text-[#271E25] tracking-tight" id="modal-title">Registrar Pagamento</h1><div class="mt-1"><button type="button" class="inline-flex items-center text-xs text-[#8B8288] hover:text-[#3B303A] transition-colors"><span class="text-brand-terracotta underline font-bold">Editar conta</span></button></div>
+
+</div>
+<button aria-label="Fechar modal" class="w-9 h-9 rounded-full bg-[#EFE9E4] active:bg-[#E2DCD7] flex items-center justify-center text-[#5C535A] transition-colors" type="button">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+<path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</button>
+</header>
+<!-- Main Form Body (Scrollable if necessary) -->
+<main class="px-6 pb-6 overflow-y-auto space-y-4 no-scrollbar">
+<!-- Account Context Mini-Badge / Summary Card -->
+
+<!-- Field 1: Amount Paid -->
+<div class="space-y-1.5" data-purpose="amount-input-group">
+<label class="block text-xs font-bold text-[#352C33] tracking-wide uppercase" for="amount-input">
+            Valor pago
+          </label>
+<div class="relative bg-white rounded-2xl border border-[#E5DFD9] focus-within:border-brand-terracotta focus-within:ring-2 focus-within:ring-brand-terracotta/20 transition-all shadow-sm">
+<div class="flex items-center px-4 py-3.5">
+<span class="text-base font-bold text-brand-terracotta mr-2 select-none">R$</span>
+<input class="w-full bg-transparent p-0 border-none font-bold text-xl text-[#2B2228] focus:ring-0 focus:outline-none" id="amount-input" placeholder="0,00" type="text" value="1.200,00">
+</div>
+</div>
+<!-- Quick Value Adjustment Tags -->
+<div class="flex items-center space-x-1.5 pt-1 overflow-x-auto no-scrollbar" data-purpose="quick-amount-chips">
+
+
+
+</div>
+</div>
+<!-- Field 2: Payment Date -->
+<div class="space-y-1.5" data-purpose="date-picker-group">
+<label class="block text-xs font-bold text-[#352C33] tracking-wide uppercase">
+            Data do pagamento
+          </label>
+<div class="flex items-center justify-between p-3.5 bg-white border border-[#E5DFD9] rounded-2xl shadow-sm">
+<div class="flex items-center space-x-3">
+<div class="w-8 h-8 rounded-lg bg-[#FAF7F4] flex items-center justify-center text-[#584F56]">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+<path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+<span class="text-sm font-bold text-[#2A2127]">Hoje, 10 Nov 2024</span>
+</div>
+<button class="text-xs font-semibold text-[#8B8288] hover:text-brand-terracotta active:opacity-75 transition-colors" type="button">
+              Alterar
+            </button>
+</div>
+</div>
+<!-- Field 3: Payment Method Selector -->
+<div class="space-y-1.5" data-purpose="payment-method-group">
+
+
+</div>
+<!-- Navigation Shortcut to Full Edit -->
+
+<!-- Action CTAs -->
+<div class="pt-2 space-y-2.5" data-purpose="modal-actions">
+<!-- Primary CTA Button -->
+<button class="w-full h-14 bg-brand-terracotta hover:bg-brand-terracotta-hover active:scale-[0.98] text-white font-bold rounded-2xl shadow-btn flex items-center justify-center space-x-2 transition-all duration-150" type="button">
+<svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+<path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<span class="text-base tracking-wide">Confirmar Pagamento</span>
+</button>
+<!-- Secondary Dismiss Button -->
+<button class="w-full h-12 bg-white/70 hover:bg-white active:scale-[0.98] text-[#756B72] hover:text-[#362D34] font-semibold text-sm rounded-2xl border border-[#E7E1DB] transition-all duration-150" type="button">
+            Cancelar
+          </button>
+</div>
+</main>
+<!-- Safe Area Spacer for iOS Devices -->
+<div aria-hidden="true" class="h-6 w-full shrink-0"></div>
+</div>
+<!-- END: BottomSheetModal -->
+</div>
+
+
+</body></html>

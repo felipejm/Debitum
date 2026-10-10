@@ -1,0 +1,111 @@
+<resources>
+    <string name="app_name">Debitum</string>
+
+    <string-array name="month_names">
+        <item>Janeiro</item>
+        <item>Fevereiro</item>
+        <item>Março</item>
+        <item>Abril</item>
+        <item>Maio</item>
+        <item>Junho</item>
+        <item>Julho</item>
+        <item>Agosto</item>
+        <item>Setembro</item>
+        <item>Outubro</item>
+        <item>Novembro</item>
+        <item>Dezembro</item>
+    </string-array>
+    <string-array name="month_short_names">
+        <item>Jan</item>
+        <item>Fev</item>
+        <item>Mar</item>
+        <item>Abr</item>
+        <item>Mai</item>
+        <item>Jun</item>
+        <item>Jul</item>
+        <item>Ago</item>
+        <item>Set</item>
+        <item>Out</item>
+        <item>Nov</item>
+        <item>Dez</item>
+    </string-array>
+    <string name="month_with_year">%1$s %2$s</string>
+
+    <string name="bills_total_to_pay">Total a pagar</string>
+    <string name="bills_total_paid">Total pago</string>
+    <plurals name="bills_pending_count">
+        <item quantity="one">%1$d conta pendente</item>
+        <item quantity="other">%1$d contas pendentes</item>
+    </plurals>
+    <plurals name="bills_overdue_count">
+        <item quantity="one">%1$d atrasada</item>
+        <item quantity="other">%1$d atrasadas</item>
+    </plurals>
+    <plurals name="bills_paid_count">
+        <item quantity="one">%1$d conta quitada</item>
+        <item quantity="other">%1$d contas quitadas</item>
+    </plurals>
+    <string name="bills_all_clear">✓ Tudo em dia!</string>
+
+    <string name="bills_tab_pending">Pendentes</string>
+    <string name="bills_tab_paid">Pagas</string>
+    <string name="bills_section_title">Contas</string>
+    <string name="bills_new">Nova</string>
+
+    <string name="bill_status_paid">Pago</string>
+    <string name="bill_status_overdue">Atrasado</string>
+    <string name="bill_paid_on">Pago em %1$s %2$s</string>
+
+    <string name="bills_empty_title">Nenhuma conta por aqui</string>
+    <string name="bills_empty_pending_message">Você está em dia com seus pagamentos para %1$s ou ainda não adicionou contas este mês.</string>
+    <string name="bills_empty_paid_message">Nenhuma conta de %1$s foi paga ainda.</string>
+    <string name="bills_empty_add_first">Cadastrar Primeira Conta</string>
+    <string name="bill_no_amount">Sem valor</string>
+
+    <string name="date_short">%1$s %2$s, %3$s</string>
+    <string name="date_long">%1$s %2$s %3$s</string>
+    <string name="date_today">Hoje, %1$s</string>
+    <string name="action_change">Alterar</string>
+    <string name="action_cancel">Cancelar</string>
+    <string name="action_close">Fechar</string>
+    <string name="amount_placeholder">0,00</string>
+    <string name="currency_symbol">R$</string>
+
+    <string name="bill_form_new_title">Nova Conta</string>
+    <string name="bill_form_new_subtitle">Preencha os dados da conta</string>
+    <string name="bill_form_edit_title">Editar Conta</string>
+    <string name="bill_form_edit_subtitle">Ajuste os dados ou remova a despesa</string>
+    <string name="bill_form_name">Nome da conta</string>
+    <string name="bill_form_name_placeholder">Ex: Aluguel &amp; Condomínio</string>
+    <string name="bill_form_due_date">Data de vencimento</string>
+    <string name="bill_form_amount">Valor da despesa</string>
+    <string name="bill_form_optional">(opcional)</string>
+    <string name="bill_form_recurring">Conta recorrente?</string>
+    <string name="bill_form_recurring_hint">Repetir automaticamente todo mês</string>
+    <string name="bill_form_recurring_locked">Só pode ser alterado ao criar a conta</string>
+    <string name="bill_form_save_new">Salvar conta</string>
+    <string name="bill_form_save_edit">Salvar alterações</string>
+    <string name="bill_form_delete">Excluir conta</string>
+
+    <string name="payment_title">Registrar Pagamento</string>
+    <string name="payment_edit_title">Editar Pagamento</string>
+    <string name="payment_edit_bill">Editar conta</string>
+    <string name="payment_amount">Valor pago</string>
+    <string name="payment_date">Data do pagamento</string>
+    <string name="payment_confirm">Confirmar Pagamento</string>
+
+    <string name="paid_title">Conta Paga</string>
+    <string name="paid_edit_payment">Editar pagamento</string>
+    <string name="paid_undo_payment">Desfazer pagamento</string>
+
+    <string name="scope_edit_title">Alterar conta recorrente</string>
+    <string name="scope_edit_message">Aplicar as alterações a quais meses? Os meses anteriores e os já pagos não mudam.</string>
+    <string name="scope_delete_title">Excluir conta recorrente</string>
+    <string name="scope_delete_message">Excluir esta conta de quais meses? Os meses anteriores continuam.</string>
+    <string name="scope_this_month">Só este mês</string>
+    <string name="scope_this_and_following">Este e os próximos</string>
+
+    <string name="delete_title">Excluir conta?</string>
+    <string name="delete_message">A conta \"%1$s\" será removida. Isso não pode ser desfeito.</string>
+    <string name="delete_confirm">Excluir</string>
+</resources>
