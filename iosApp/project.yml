@@ -17,7 +17,8 @@ targets:
       path: iosApp/Info.plist
       properties:
         CFBundleDisplayName: Debitum
-        UILaunchScreen: {}
+        UILaunchScreen:
+          UIColorName: LaunchBackground
         UIUserInterfaceStyle: Light
         CADisableMinimumFrameDurationOnPhone: true
         UISupportedInterfaceOrientations:

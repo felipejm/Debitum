@@ -11,6 +11,8 @@ interface BillRepository {
 
     fun observeBill(id: Long): Flow<Bill?>
 
+    fun observeLastPaidAmount(seriesId: Long, excludeBillId: Long): Flow<Long?>
+
     suspend fun createBill(name: String, expectedAmountCents: Long?, dueDate: LocalDate, recurring: Boolean)
 
     /** [scope] is ignored for bills that are not recurring. */

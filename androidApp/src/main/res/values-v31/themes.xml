@@ -1,0 +1,13 @@
+<resources>
+    <style name="Theme.Debitum" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:colorAccent">#DD785D</item>
+        <item name="android:colorPrimary">#DD785D</item>
+        <item name="android:windowBackground">@color/splash_background</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowSplashScreenBackground">@color/splash_background</item>
+        <item name="android:windowSplashScreenAnimatedIcon">@drawable/splash_logo</item>
+        <item name="android:windowSplashScreenIconBackgroundColor">@color/splash_background</item>
+    </style>
+</resources>

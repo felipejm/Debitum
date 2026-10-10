@@ -23,6 +23,16 @@ interface BillDao {
     @Query("SELECT * FROM bills WHERE seriesId = :seriesId AND seriesMonth > :month AND isDeleted = 0 AND paidDate IS NULL")
     suspend fun getUnpaidSeriesBillsAfter(seriesId: Long, month: YearMonth): List<BillEntity>
 
+    @Query(
+        """
+        SELECT paidAmountCents FROM bills
+        WHERE seriesId = :seriesId AND id != :excludeId AND paidAmountCents IS NOT NULL
+        ORDER BY seriesMonth DESC
+        LIMIT 1
+        """,
+    )
+    fun observeLastPaidAmount(seriesId: Long, excludeId: Long): Flow<Long?>
+
     @Insert
     suspend fun insert(bill: BillEntity): Long
 

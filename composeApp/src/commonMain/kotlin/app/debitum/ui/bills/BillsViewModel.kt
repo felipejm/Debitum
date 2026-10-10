@@ -13,6 +13,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -22,8 +23,6 @@ import kotlinx.datetime.YearMonth
 import kotlinx.datetime.todayIn
 import kotlinx.datetime.yearMonth
 import kotlin.time.Clock
-
-enum class BillsTab { Pending, Paid }
 
 /** Bottom sheets stacked over the bills list; the last one is on top. */
 sealed interface BillSheet {
@@ -39,14 +38,11 @@ sealed interface BillSheet {
 data class BillsUiState(
     val currentMonth: YearMonth,
     val selectedMonth: YearMonth,
-    val tab: BillsTab = BillsTab.Pending,
     val today: LocalDate,
     val bills: List<Bill> = emptyList(),
     val pendingTotalCents: Long = 0,
-    val paidTotalCents: Long = 0,
     val pendingCount: Int = 0,
     val overdueCount: Int = 0,
-    val paidCount: Int = 0,
     val monthHasBills: Boolean = false,
     val isLoading: Boolean = true,
 )
@@ -57,16 +53,14 @@ class BillsViewModel(
 ) : ViewModel() {
     private val today = Clock.System.todayIn(TimeZone.currentSystemDefault())
     private val selectedMonth = MutableStateFlow(today.yearMonth)
-    private val tab = MutableStateFlow(BillsTab.Pending)
     private val _sheets = MutableStateFlow<List<BillSheet>>(emptyList())
 
     val sheets: StateFlow<List<BillSheet>> = _sheets.asStateFlow()
 
     val uiState: StateFlow<BillsUiState> = combine(
         selectedMonth,
-        tab,
         selectedMonth.flatMapLatest(repository::observeBillsDueIn),
-    ) { month, tab, monthBills -> buildState(month, tab, monthBills) }
+    ) { month, monthBills -> buildState(month, monthBills) }
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5_000),
@@ -75,9 +69,12 @@ class BillsViewModel(
 
     fun selectMonth(month: YearMonth) = selectedMonth.update { month }
 
-    fun selectTab(tab: BillsTab) = this.tab.update { tab }
-
     fun observeBill(id: Long): Flow<Bill?> = repository.observeBill(id)
+
+    fun observeLastPaidAmount(bill: Bill): Flow<Long?> {
+        val seriesId = bill.seriesId ?: return flowOf(null)
+        return repository.observeLastPaidAmount(seriesId, bill.id)
+    }
 
     fun openNewBill() = push(BillSheet.NewBill)
 
@@ -113,24 +110,28 @@ class BillsViewModel(
 
     private fun push(sheet: BillSheet) = _sheets.update { if (sheet in it) it else it + sheet }
 
-    private fun buildState(month: YearMonth, tab: BillsTab, monthBills: List<Bill>): BillsUiState {
-        val (paid, pending) = monthBills.partition { it.isPaid }
+    private fun buildState(month: YearMonth, monthBills: List<Bill>): BillsUiState {
+        val pending = monthBills.filter { !it.isPaid }
         return BillsUiState(
             currentMonth = today.yearMonth,
             selectedMonth = month,
-            tab = tab,
             today = today,
-            bills = when (tab) {
-                BillsTab.Pending -> pending.sortedWith(compareBy({ it.dueDate }, { it.name }))
-                BillsTab.Paid -> paid.sortedByDescending { it.paidDate }
-            },
+            bills = monthBills.sortedWith(
+                compareBy<Bill> { it.listStatusRank(today) }
+                    .thenBy(String.CASE_INSENSITIVE_ORDER) { it.name.trim() },
+            ),
             pendingTotalCents = pending.sumOf { it.expectedAmountCents ?: 0 },
-            paidTotalCents = paid.sumOf { it.paidAmountCents ?: 0 },
             pendingCount = pending.size,
             overdueCount = pending.count { it.isOverdue(today) },
-            paidCount = paid.size,
             monthHasBills = monthBills.isNotEmpty(),
             isLoading = false,
         )
     }
+}
+
+/** Paid → unpaid → overdue, then alphabetical. */
+private fun Bill.listStatusRank(today: LocalDate): Int = when {
+    isPaid -> 0
+    isOverdue(today) -> 2
+    else -> 1
 }

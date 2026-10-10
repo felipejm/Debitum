@@ -35,6 +35,9 @@ class RoomBillRepository(
 
     override fun observeBill(id: Long): Flow<Bill?> = billDao.observeById(id).map { it?.toDomain() }
 
+    override fun observeLastPaidAmount(seriesId: Long, excludeBillId: Long): Flow<Long?> =
+        billDao.observeLastPaidAmount(seriesId, excludeBillId)
+
     override suspend fun createBill(name: String, expectedAmountCents: Long?, dueDate: LocalDate, recurring: Boolean) {
         transaction {
             if (recurring) {

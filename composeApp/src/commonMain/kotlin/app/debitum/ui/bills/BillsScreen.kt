@@ -48,17 +48,12 @@ import app.debitum.resources.bill_status_overdue
 import app.debitum.resources.bill_status_paid
 import app.debitum.resources.bills_all_clear
 import app.debitum.resources.bills_empty_add_first
-import app.debitum.resources.bills_empty_paid_message
 import app.debitum.resources.bills_empty_pending_message
 import app.debitum.resources.bills_empty_title
 import app.debitum.resources.bills_new
 import app.debitum.resources.bills_overdue_count
-import app.debitum.resources.bills_paid_count
 import app.debitum.resources.bills_pending_count
 import app.debitum.resources.bills_section_title
-import app.debitum.resources.bills_tab_paid
-import app.debitum.resources.bills_tab_pending
-import app.debitum.resources.bills_total_paid
 import app.debitum.resources.bills_total_to_pay
 import app.debitum.resources.month_names
 import app.debitum.resources.month_with_year
@@ -86,7 +81,6 @@ fun BillsScreen(viewModel: BillsViewModel = koinViewModel()) {
     BillsContent(
         uiState = uiState,
         onMonthSelected = viewModel::selectMonth,
-        onTabSelected = viewModel::selectTab,
         onNewBill = viewModel::openNewBill,
         onBillClick = viewModel::openBill,
     )
@@ -99,7 +93,6 @@ fun BillsScreen(viewModel: BillsViewModel = koinViewModel()) {
 fun BillsContent(
     uiState: BillsUiState,
     onMonthSelected: (YearMonth) -> Unit,
-    onTabSelected: (BillsTab) -> Unit,
     onNewBill: () -> Unit,
     onBillClick: (Bill) -> Unit,
 ) {
@@ -124,17 +117,12 @@ fun BillsContent(
                 Spacer(Modifier.height(28.dp))
             }
             item {
-                TabsRow(uiState.tab, onTabSelected, Modifier.padding(horizontal = ScreenPadding))
-                Spacer(Modifier.height(24.dp))
-            }
-            item {
                 SectionHeader(onNewBill, Modifier.padding(horizontal = ScreenPadding))
                 Spacer(Modifier.height(16.dp))
             }
             if (uiState.bills.isEmpty() && !uiState.isLoading) {
                 item {
                     EmptyState(
-                        tab = uiState.tab,
                         monthName = monthLabel(uiState.selectedMonth, uiState.currentMonth),
                         showAddButton = !uiState.monthHasBills,
                         onNewBill = onNewBill,
@@ -205,16 +193,15 @@ private fun SummaryCard(uiState: BillsUiState, modifier: Modifier = Modifier) {
             .background(DebitumColors.Card, shape)
             .padding(24.dp),
     ) {
-        val isPending = uiState.tab == BillsTab.Pending
         Text(
-            text = stringResource(if (isPending) Res.string.bills_total_to_pay else Res.string.bills_total_paid),
+            text = stringResource(Res.string.bills_total_to_pay),
             fontSize = 12.sp,
             fontWeight = FontWeight.Medium,
             color = Color.White.copy(alpha = 0.6f),
         )
         Spacer(Modifier.height(4.dp))
         Text(
-            text = formatBrl(if (isPending) uiState.pendingTotalCents else uiState.paidTotalCents),
+            text = formatBrl(uiState.pendingTotalCents),
             fontSize = 30.sp,
             fontWeight = FontWeight.ExtraBold,
             letterSpacing = (-0.5).sp,
@@ -222,11 +209,6 @@ private fun SummaryCard(uiState: BillsUiState, modifier: Modifier = Modifier) {
         )
         Spacer(Modifier.height(16.dp))
         when {
-            !isPending -> Pill(
-                text = "• " + pluralStringResource(Res.plurals.bills_paid_count, uiState.paidCount, uiState.paidCount),
-                textColor = DebitumColors.PaidOnCard,
-                background = DebitumColors.Paid.copy(alpha = 0.2f),
-            )
             uiState.pendingCount == 0 -> Pill(
                 text = stringResource(Res.string.bills_all_clear),
                 textColor = DebitumColors.AccentOnCard,
@@ -247,34 +229,6 @@ private fun SummaryCard(uiState: BillsUiState, modifier: Modifier = Modifier) {
             )
         }
     }
-}
-
-@Composable
-private fun TabsRow(selected: BillsTab, onTabSelected: (BillsTab) -> Unit, modifier: Modifier = Modifier) {
-    Row(modifier = modifier, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-        TabPill(stringResource(Res.string.bills_tab_pending), selected == BillsTab.Pending) {
-            onTabSelected(BillsTab.Pending)
-        }
-        TabPill(stringResource(Res.string.bills_tab_paid), selected == BillsTab.Paid) {
-            onTabSelected(BillsTab.Paid)
-        }
-    }
-}
-
-@Composable
-private fun TabPill(text: String, selected: Boolean, onClick: () -> Unit) {
-    Text(
-        text = text,
-        fontSize = 12.sp,
-        letterSpacing = 0.3.sp,
-        fontWeight = if (selected) FontWeight.SemiBold else FontWeight.Medium,
-        color = if (selected) Color.White else DebitumColors.TextSecondary,
-        modifier = Modifier
-            .clip(CircleShape)
-            .background(if (selected) DebitumColors.Accent else DebitumColors.Surface)
-            .clickable(onClick = onClick)
-            .padding(horizontal = 24.dp, vertical = 10.dp),
-    )
 }
 
 @Composable
@@ -410,7 +364,6 @@ private fun Pill(
 
 @Composable
 private fun EmptyState(
-    tab: BillsTab,
     monthName: String,
     showAddButton: Boolean,
     onNewBill: () -> Unit,
@@ -437,17 +390,14 @@ private fun EmptyState(
         )
         Spacer(Modifier.height(6.dp))
         Text(
-            text = stringResource(
-                if (tab == BillsTab.Pending) Res.string.bills_empty_pending_message else Res.string.bills_empty_paid_message,
-                monthName,
-            ),
+            text = stringResource(Res.string.bills_empty_pending_message, monthName),
             fontSize = 12.sp,
             lineHeight = 19.sp,
             color = DebitumColors.TextMuted,
             textAlign = TextAlign.Center,
             modifier = Modifier.width(260.dp),
         )
-        if (showAddButton && tab == BillsTab.Pending) {
+        if (showAddButton) {
             Spacer(Modifier.height(24.dp))
             Row(
                 modifier = Modifier

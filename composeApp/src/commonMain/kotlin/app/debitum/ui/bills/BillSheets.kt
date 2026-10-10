@@ -115,9 +115,13 @@ fun BillSheetHost(sheet: BillSheet, viewModel: BillsViewModel, today: LocalDate)
             )
         }
         is BillSheet.Payment -> WithBill(sheet.billId, viewModel) { bill ->
+            val lastPaid by remember(bill.id, bill.seriesId) {
+                viewModel.observeLastPaidAmount(bill)
+            }.collectAsStateWithLifecycle(initialValue = null)
             PaymentSheet(
                 bill = bill,
                 today = today,
+                lastPaidCents = lastPaid,
                 onDismissed = onDismissed,
                 onEditBill = { viewModel.openEditBill(bill.id) },
                 onConfirm = { cents, date -> viewModel.registerPayment(bill.id, cents, date) },
@@ -155,9 +159,9 @@ private fun BillFormSheet(
     onDeleted: () -> Unit,
 ) {
     var name by rememberSaveable { mutableStateOf(bill?.name.orEmpty()) }
-    var cents by rememberSaveable { mutableStateOf(bill?.expectedAmountCents) }
+    var cents by remember(bill?.id) { mutableStateOf(bill?.expectedAmountCents) }
     var dueDate by remember { mutableStateOf(bill?.dueDate ?: today) }
-    var recurring by rememberSaveable { mutableStateOf(bill?.isRecurring ?: false) }
+    var recurring by rememberSaveable { mutableStateOf(bill?.isRecurring ?: true) }
     var dialog by remember { mutableStateOf<FormDialog?>(null) }
     val datePicker = rememberDatePickerLauncher()
     val isNew = bill == null
@@ -305,6 +309,7 @@ private fun RecurringToggle(checked: Boolean, enabled: Boolean, onCheckedChange:
 private fun PaymentSheet(
     bill: Bill,
     today: LocalDate,
+    lastPaidCents: Long?,
     onDismissed: () -> Unit,
     onEditBill: () -> Unit,
     onConfirm: (cents: Long?, date: LocalDate) -> Unit,
@@ -314,7 +319,11 @@ private fun PaymentSheet(
         // Follows the bill's amount (which may be edited from this sheet) until the user types one.
         var typedCents by rememberSaveable { mutableStateOf<Long?>(null) }
         var amountTyped by rememberSaveable { mutableStateOf(false) }
-        val cents = if (amountTyped) typedCents else bill.paidAmountCents ?: bill.expectedAmountCents
+        val cents = if (amountTyped) {
+            typedCents
+        } else {
+            bill.paidAmountCents ?: bill.expectedAmountCents ?: lastPaidCents
+        }
         var date by remember { mutableStateOf(bill.paidDate ?: today) }
         val datePicker = rememberDatePickerLauncher()
 

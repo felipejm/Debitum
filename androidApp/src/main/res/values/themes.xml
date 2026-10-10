@@ -2,6 +2,9 @@
     <style name="Theme.Debitum" parent="android:Theme.Material.Light.NoActionBar">
         <item name="android:colorAccent">#DD785D</item>
         <item name="android:colorPrimary">#DD785D</item>
-        <item name="android:windowBackground">@android:color/white</item>
+        <item name="android:windowBackground">@color/splash_background</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
 </resources>
