@@ -3,6 +3,10 @@
 # build phase runs Gradle, which fails without Java.
 set -eu
 
+export HOMEBREW_NO_AUTO_UPDATE=1
+export HOMEBREW_NO_INSTALL_CLEANUP=1
+export HOMEBREW_NO_ENV_HINTS=1
+
 if ! command -v brew >/dev/null 2>&1; then
   if [ -x /opt/homebrew/bin/brew ]; then
     eval "$(/opt/homebrew/bin/brew shellenv)"
@@ -11,11 +15,13 @@ fi
 
 brew install openjdk@21
 
-jdk_bundle="$(brew --prefix openjdk@21)/libexec/openjdk.jdk"
-sudo ln -sfn "$jdk_bundle" /Library/Java/JavaVirtualMachines/openjdk-21.jdk
-
-export JAVA_HOME="$jdk_bundle/Contents/Home"
-export PATH="$JAVA_HOME/bin:$PATH"
+# Homebrew's openjdk is keg-only. Xcode Cloud cannot sudo, so the
+# Gradle build phase points JAVA_HOME at this path directly.
+JAVA_HOME="$(brew --prefix openjdk@21)/libexec/openjdk.jdk/Contents/Home"
+if [ ! -x "$JAVA_HOME/bin/java" ]; then
+  echo "JDK 21 was installed but java is missing at $JAVA_HOME" >&2
+  exit 1
+fi
 
 echo "JAVA_HOME=$JAVA_HOME"
-java -version
+"$JAVA_HOME/bin/java" -version
