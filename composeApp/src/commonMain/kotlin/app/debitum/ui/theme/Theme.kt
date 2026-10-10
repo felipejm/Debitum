@@ -37,6 +37,50 @@ object DebitumColors {
     val Overdue = Color(0xFFEF4444)
     val OverdueStrong = Color(0xFFF43F5E)
     val OverdueOnCard = Color(0xFFFF8A8A)
+
+    fun avatarLetter(name: String): Color {
+        val letter = name.trim().firstOrNull()?.baseLetter() ?: return Accent
+        return AvatarLetters[letter - 'A']
+    }
+}
+
+private val AvatarLetters = listOf(
+    Color(0xFFF43F5E), // A — rose, like Aluguel in Stitch
+    Color(0xFF3B82F6), // B
+    Color(0xFF9333EA), // C — purple, like Cartão
+    Color(0xFF14B8A6), // D
+    Color(0xFFF59E0B), // E — amber, like Energia
+    Color(0xFF8B5CF6), // F — violet, like Fatura
+    Color(0xFF22C55E), // G
+    Color(0xFFF97316), // H
+    Color(0xFFDD785D), // I — terracotta, like Internet
+    Color(0xFF06B6D4), // J
+    Color(0xFF6366F1), // K
+    Color(0xFF65A30D), // L
+    Color(0xFFEC4899), // M
+    Color(0xFF7C3AED), // N
+    Color(0xFFEA580C), // O
+    Color(0xFF0EA5E9), // P
+    Color(0xFFDB2777), // Q
+    Color(0xFF10B981), // R — emerald, like Reembolso
+    Color(0xFFCA8A04), // S
+    Color(0xFF4F46E5), // T
+    Color(0xFF0891B2), // U
+    Color(0xFF16A34A), // V
+    Color(0xFFC026D3), // W
+    Color(0xFFDC2626), // X
+    Color(0xFFD97706), // Y
+    Color(0xFF2563EB), // Z
+)
+
+private fun Char.baseLetter(): Char = when (uppercaseChar()) {
+    'Á', 'À', 'Â', 'Ã' -> 'A'
+    'É', 'Ê' -> 'E'
+    'Í' -> 'I'
+    'Ó', 'Ô', 'Õ' -> 'O'
+    'Ú', 'Ü' -> 'U'
+    'Ç' -> 'C'
+    else -> uppercaseChar().let { if (it in 'A'..'Z') it else 'A' }
 }
 
 @Composable

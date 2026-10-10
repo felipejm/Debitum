@@ -286,7 +286,7 @@ private fun BillRow(bill: Bill, today: LocalDate, onClick: () -> Unit, modifier:
                 text = bill.name.trim().take(1).uppercase(),
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
-                color = DebitumColors.Accent,
+                color = DebitumColors.avatarLetter(bill.name),
             )
         }
         Spacer(Modifier.width(14.dp))
