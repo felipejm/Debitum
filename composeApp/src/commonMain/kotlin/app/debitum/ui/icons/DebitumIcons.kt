@@ -51,6 +51,23 @@ object DebitumIcons {
         strokeIcon("Check", strokeWidth = 2.4f, "M20 6L9 17l-5-5")
     }
 
+    val Settings: ImageVector by lazy {
+        strokeIcon(
+            "Settings",
+            strokeWidth = 2f,
+            "M12 15a3 3 0 1 0 0-6 3 3 0 1 0 0 6",
+            "M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z",
+        )
+    }
+
+    val ChevronLeft: ImageVector by lazy {
+        strokeIcon("ChevronLeft", strokeWidth = 2.2f, "M15 18l-6-6 6-6")
+    }
+
+    val Moon: ImageVector by lazy {
+        strokeIcon("Moon", strokeWidth = 2f, "M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z")
+    }
+
     val Trash: ImageVector by lazy {
         strokeIcon(
             "Trash",

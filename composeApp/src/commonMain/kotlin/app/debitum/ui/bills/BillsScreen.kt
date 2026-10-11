@@ -54,12 +54,14 @@ import app.debitum.resources.bills_new
 import app.debitum.resources.bills_overdue_count
 import app.debitum.resources.bills_pending_count
 import app.debitum.resources.bills_section_title
-import app.debitum.resources.bills_total_to_pay
+import app.debitum.resources.bills_total_paid
 import app.debitum.resources.month_names
 import app.debitum.resources.month_with_year
+import app.debitum.resources.settings_open
 import app.debitum.domain.monthsBetween
 import app.debitum.domain.plusMonths
 import app.debitum.ui.format.formatBrl
+import app.debitum.ui.components.SurfaceIconButton
 import app.debitum.ui.format.paidOnText
 import app.debitum.ui.format.shortDateText
 import app.debitum.ui.icons.DebitumIcons
@@ -75,7 +77,10 @@ private val ScreenPadding = 24.dp
 private const val MONTHS_AROUND_CURRENT = 120
 
 @Composable
-fun BillsScreen(viewModel: BillsViewModel = koinViewModel()) {
+fun BillsScreen(
+    onOpenSettings: () -> Unit,
+    viewModel: BillsViewModel = koinViewModel(),
+) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val sheets by viewModel.sheets.collectAsStateWithLifecycle()
     BillsContent(
@@ -83,6 +88,7 @@ fun BillsScreen(viewModel: BillsViewModel = koinViewModel()) {
         onMonthSelected = viewModel::selectMonth,
         onNewBill = viewModel::openNewBill,
         onBillClick = viewModel::openBill,
+        onOpenSettings = onOpenSettings,
     )
     sheets.forEach { sheet ->
         key(sheet) { BillSheetHost(sheet, viewModel, uiState.today) }
@@ -95,6 +101,7 @@ fun BillsContent(
     onMonthSelected: (YearMonth) -> Unit,
     onNewBill: () -> Unit,
     onBillClick: (Bill) -> Unit,
+    onOpenSettings: () -> Unit,
 ) {
     Scaffold(containerColor = DebitumColors.Background) { insets ->
         LazyColumn(
@@ -105,6 +112,20 @@ fun BillsContent(
             ),
         ) {
             item {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = ScreenPadding),
+                    horizontalArrangement = Arrangement.End,
+                ) {
+                    SurfaceIconButton(
+                        icon = DebitumIcons.Settings,
+                        contentDescription = stringResource(Res.string.settings_open),
+                        onClick = onOpenSettings,
+                        showDot = true,
+                    )
+                }
+                Spacer(Modifier.height(16.dp))
                 MonthSelector(
                     currentMonth = uiState.currentMonth,
                     selectedMonth = uiState.selectedMonth,
@@ -194,14 +215,14 @@ private fun SummaryCard(uiState: BillsUiState, modifier: Modifier = Modifier) {
             .padding(24.dp),
     ) {
         Text(
-            text = stringResource(Res.string.bills_total_to_pay),
+            text = stringResource(Res.string.bills_total_paid),
             fontSize = 12.sp,
             fontWeight = FontWeight.Medium,
             color = Color.White.copy(alpha = 0.6f),
         )
         Spacer(Modifier.height(4.dp))
         Text(
-            text = formatBrl(uiState.pendingTotalCents),
+            text = formatBrl(uiState.paidTotalCents),
             fontSize = 30.sp,
             fontWeight = FontWeight.ExtraBold,
             letterSpacing = (-0.5).sp,

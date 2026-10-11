@@ -2,8 +2,11 @@ package app.debitum.ui.theme
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Typography
+import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
@@ -16,30 +19,117 @@ import app.debitum.resources.plus_jakarta_sans_regular
 import app.debitum.resources.plus_jakarta_sans_semibold
 import org.jetbrains.compose.resources.Font
 
+class DebitumPalette(
+    val background: Color,
+    val card: Color,
+    val accent: Color,
+    val accentOnCard: Color,
+    val textDark: Color,
+    val textMuted: Color,
+    val textSecondary: Color,
+    val surface: Color,
+    val sheetBackground: Color,
+    val handle: Color,
+    val closeButton: Color,
+    val fieldBorder: Color,
+    val dangerSoft: Color,
+    val paid: Color,
+    val paidStrong: Color,
+    val paidSoft: Color,
+    val paidOnCard: Color,
+    val overdue: Color,
+    val overdueStrong: Color,
+    val overdueOnCard: Color,
+    val gearBackground: Color,
+    val gearBorder: Color,
+    val gearIcon: Color,
+    val isDark: Boolean,
+)
+
+private val LightPalette = DebitumPalette(
+    background = Color(0xFFFFFFFF),
+    card = Color(0xFF2C2036),
+    accent = Color(0xFFDD785D),
+    accentOnCard = Color(0xFFFFA084),
+    textDark = Color(0xFF1E1926),
+    textMuted = Color(0xFF9CA3AF),
+    textSecondary = Color(0xFF6B7280),
+    surface = Color(0xFFF7F6F9),
+    sheetBackground = Color(0xFFFAF9FC),
+    handle = Color(0xFFD1D5DB),
+    closeButton = Color(0xFFF3F4F6),
+    fieldBorder = Color(0xFFEEEBF2),
+    dangerSoft = Color(0xFFFFF1F2),
+    paid = Color(0xFF10B981),
+    paidStrong = Color(0xFF059669),
+    paidSoft = Color(0xFFECFDF5),
+    paidOnCard = Color(0xFF34D399),
+    overdue = Color(0xFFEF4444),
+    overdueStrong = Color(0xFFF43F5E),
+    overdueOnCard = Color(0xFFFF8A8A),
+    gearBackground = Color(0xFFFFFFFF),
+    gearBorder = Color(0xFFF3F4F6),
+    gearIcon = Color(0xFF291E34),
+    isDark = false,
+)
+
+private val DarkPalette = DebitumPalette(
+    background = Color(0xFF141117),
+    card = Color(0xFF2C2036),
+    accent = Color(0xFFDD785D),
+    accentOnCard = Color(0xFFFFA084),
+    textDark = Color(0xFFF4F1F6),
+    textMuted = Color(0xFF9B93A6),
+    textSecondary = Color(0xFFC8C0D1),
+    surface = Color(0xFF221C29),
+    sheetBackground = Color(0xFF1C1722),
+    handle = Color(0xFF4A4254),
+    closeButton = Color(0xFF2A2432),
+    fieldBorder = Color(0xFF3A3344),
+    dangerSoft = Color(0xFF3A2428),
+    paid = Color(0xFF34D399),
+    paidStrong = Color(0xFF6EE7B7),
+    paidSoft = Color(0xFF14352C),
+    paidOnCard = Color(0xFF34D399),
+    overdue = Color(0xFFF87171),
+    overdueStrong = Color(0xFFFB7185),
+    overdueOnCard = Color(0xFFFF8A8A),
+    gearBackground = Color(0xFF221C29),
+    gearBorder = Color(0xFF3A3344),
+    gearIcon = Color(0xFFF4F1F6),
+    isDark = true,
+)
+
+val LocalDebitumColors = staticCompositionLocalOf { LightPalette }
+
 object DebitumColors {
-    val Background = Color(0xFFFFFFFF)
-    val Card = Color(0xFF2C2036)
-    val Accent = Color(0xFFDD785D)
-    val AccentOnCard = Color(0xFFFFA084)
-    val TextDark = Color(0xFF1E1926)
-    val TextMuted = Color(0xFF9CA3AF)
-    val TextSecondary = Color(0xFF6B7280)
-    val Surface = Color(0xFFF7F6F9)
-    val SheetBackground = Color(0xFFFAF9FC)
-    val Handle = Color(0xFFD1D5DB)
-    val CloseButton = Color(0xFFF3F4F6)
-    val FieldBorder = Color(0xFFEEEBF2)
-    val DangerSoft = Color(0xFFFFF1F2)
-    val Paid = Color(0xFF10B981)
-    val PaidStrong = Color(0xFF059669)
-    val PaidSoft = Color(0xFFECFDF5)
-    val PaidOnCard = Color(0xFF34D399)
-    val Overdue = Color(0xFFEF4444)
-    val OverdueStrong = Color(0xFFF43F5E)
-    val OverdueOnCard = Color(0xFFFF8A8A)
+    val Background: Color @Composable get() = LocalDebitumColors.current.background
+    val Card: Color @Composable get() = LocalDebitumColors.current.card
+    val Accent: Color @Composable get() = LocalDebitumColors.current.accent
+    val AccentOnCard: Color @Composable get() = LocalDebitumColors.current.accentOnCard
+    val TextDark: Color @Composable get() = LocalDebitumColors.current.textDark
+    val TextMuted: Color @Composable get() = LocalDebitumColors.current.textMuted
+    val TextSecondary: Color @Composable get() = LocalDebitumColors.current.textSecondary
+    val Surface: Color @Composable get() = LocalDebitumColors.current.surface
+    val SheetBackground: Color @Composable get() = LocalDebitumColors.current.sheetBackground
+    val Handle: Color @Composable get() = LocalDebitumColors.current.handle
+    val CloseButton: Color @Composable get() = LocalDebitumColors.current.closeButton
+    val FieldBorder: Color @Composable get() = LocalDebitumColors.current.fieldBorder
+    val DangerSoft: Color @Composable get() = LocalDebitumColors.current.dangerSoft
+    val Paid: Color @Composable get() = LocalDebitumColors.current.paid
+    val PaidStrong: Color @Composable get() = LocalDebitumColors.current.paidStrong
+    val PaidSoft: Color @Composable get() = LocalDebitumColors.current.paidSoft
+    val PaidOnCard: Color @Composable get() = LocalDebitumColors.current.paidOnCard
+    val Overdue: Color @Composable get() = LocalDebitumColors.current.overdue
+    val OverdueStrong: Color @Composable get() = LocalDebitumColors.current.overdueStrong
+    val OverdueOnCard: Color @Composable get() = LocalDebitumColors.current.overdueOnCard
+    val GearBackground: Color @Composable get() = LocalDebitumColors.current.gearBackground
+    val GearBorder: Color @Composable get() = LocalDebitumColors.current.gearBorder
+    val GearIcon: Color @Composable get() = LocalDebitumColors.current.gearIcon
+    val isDark: Boolean @Composable get() = LocalDebitumColors.current.isDark
 
     fun avatarLetter(name: String): Color {
-        val letter = name.trim().firstOrNull()?.baseLetter() ?: return Accent
+        val letter = name.trim().firstOrNull()?.baseLetter() ?: return LightPalette.accent
         return AvatarLetters[letter - 'A']
     }
 }
@@ -93,7 +183,8 @@ fun plusJakartaSans() = FontFamily(
 )
 
 @Composable
-fun DebitumTheme(content: @Composable () -> Unit) {
+fun DebitumTheme(dark: Boolean = false, content: @Composable () -> Unit) {
+    val palette = if (dark) DarkPalette else LightPalette
     val family = plusJakartaSans()
     val base = Typography()
     val typography = Typography(
@@ -113,20 +204,46 @@ fun DebitumTheme(content: @Composable () -> Unit) {
         labelMedium = base.labelMedium.withFamily(family),
         labelSmall = base.labelSmall.withFamily(family),
     )
-    MaterialTheme(
-        colorScheme = lightColorScheme(
-            primary = DebitumColors.Accent,
-            onPrimary = Color.White,
-            background = DebitumColors.Background,
-            onBackground = DebitumColors.TextDark,
-            surface = DebitumColors.Background,
-            onSurface = DebitumColors.TextDark,
-            surfaceVariant = DebitumColors.Surface,
-            onSurfaceVariant = DebitumColors.TextSecondary,
-            error = DebitumColors.Overdue,
-        ),
-        typography = typography,
-        content = content,
+    CompositionLocalProvider(LocalDebitumColors provides palette) {
+        ApplySystemBars(darkIcons = !dark)
+        MaterialTheme(
+            colorScheme = palette.materialColors(dark),
+            typography = typography,
+            content = content,
+        )
+    }
+}
+
+private fun DebitumPalette.materialColors(dark: Boolean) = if (dark) {
+    darkColorScheme(
+        primary = accent,
+        onPrimary = Color.White,
+        background = background,
+        onBackground = textDark,
+        surface = sheetBackground,
+        onSurface = textDark,
+        surfaceVariant = surface,
+        onSurfaceVariant = textSecondary,
+        surfaceContainer = sheetBackground,
+        surfaceContainerHigh = surface,
+        surfaceContainerLow = background,
+        outline = fieldBorder,
+        error = overdue,
+    )
+} else {
+    lightColorScheme(
+        primary = accent,
+        onPrimary = Color.White,
+        background = background,
+        onBackground = textDark,
+        surface = background,
+        onSurface = textDark,
+        surfaceVariant = surface,
+        onSurfaceVariant = textSecondary,
+        surfaceContainer = sheetBackground,
+        surfaceContainerHigh = sheetBackground,
+        outline = fieldBorder,
+        error = overdue,
     )
 }
 

@@ -305,7 +305,7 @@ fun DateField(text: String, onClick: () -> Unit) {
             modifier = Modifier.size(32.dp).background(DebitumColors.Surface, RoundedCornerShape(12.dp)),
             contentAlignment = Alignment.Center,
         ) {
-            Icon(DebitumIcons.Calendar, contentDescription = null, tint = DebitumColors.Card, modifier = Modifier.size(16.dp))
+            Icon(DebitumIcons.Calendar, contentDescription = null, tint = DebitumColors.TextDark, modifier = Modifier.size(16.dp))
         }
         Spacer(Modifier.width(12.dp))
         Text(

@@ -34,7 +34,7 @@ private const val SplashHoldMs = 1_150L
 
 @Composable
 fun SplashScreen(onFinished: () -> Unit) {
-    SplashSystemBars()
+    SplashSystemBars(restoreDarkIcons = !DebitumColors.isDark)
 
     val logoAlpha = remember { Animatable(0f) }
     val logoScale = remember { Animatable(0.88f) }

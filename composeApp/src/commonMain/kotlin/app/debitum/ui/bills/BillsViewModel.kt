@@ -40,7 +40,7 @@ data class BillsUiState(
     val selectedMonth: YearMonth,
     val today: LocalDate,
     val bills: List<Bill> = emptyList(),
-    val pendingTotalCents: Long = 0,
+    val paidTotalCents: Long = 0,
     val pendingCount: Int = 0,
     val overdueCount: Int = 0,
     val monthHasBills: Boolean = false,
@@ -120,7 +120,7 @@ class BillsViewModel(
                 compareBy<Bill> { it.listStatusRank(today) }
                     .thenBy(String.CASE_INSENSITIVE_ORDER) { it.name.trim() },
             ),
-            pendingTotalCents = pending.sumOf { it.expectedAmountCents ?: 0 },
+            paidTotalCents = monthBills.filter { it.isPaid }.sumOf { it.paidAmountCents ?: 0 },
             pendingCount = pending.size,
             overdueCount = pending.count { it.isOverdue(today) },
             monthHasBills = monthBills.isNotEmpty(),

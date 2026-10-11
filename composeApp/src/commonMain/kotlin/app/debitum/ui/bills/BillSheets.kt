@@ -428,7 +428,7 @@ private fun ScopeDialog(
 ) {
     AlertDialog(
         onDismissRequest = onDismiss,
-        containerColor = Color.White,
+        containerColor = DebitumColors.SheetBackground,
         title = { Text(title, fontWeight = FontWeight.Bold, color = DebitumColors.TextDark) },
         text = { Text(message, color = DebitumColors.TextSecondary) },
         confirmButton = {
@@ -447,7 +447,7 @@ private fun ScopeDialog(
 private fun DeleteDialog(billName: String, onDismiss: () -> Unit, onConfirm: () -> Unit) {
     AlertDialog(
         onDismissRequest = onDismiss,
-        containerColor = Color.White,
+        containerColor = DebitumColors.SheetBackground,
         title = { Text(stringResource(Res.string.delete_title), fontWeight = FontWeight.Bold, color = DebitumColors.TextDark) },
         text = { Text(stringResource(Res.string.delete_message, billName), color = DebitumColors.TextSecondary) },
         confirmButton = { DialogButton(stringResource(Res.string.delete_confirm), DebitumColors.OverdueStrong, onConfirm) },

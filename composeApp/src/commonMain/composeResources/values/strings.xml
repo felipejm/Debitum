@@ -108,4 +108,11 @@
     <string name="delete_title">Excluir conta?</string>
     <string name="delete_message">A conta \"%1$s\" será removida. Isso não pode ser desfeito.</string>
     <string name="delete_confirm">Excluir</string>
+
+    <string name="settings_open">Configurações</string>
+    <string name="settings_title">Configurações</string>
+    <string name="settings_back">Voltar</string>
+    <string name="settings_appearance">Aparência</string>
+    <string name="settings_dark_mode">Modo escuro</string>
+    <string name="settings_dark_mode_hint">Fundo escuro e textos claros</string>
 </resources>

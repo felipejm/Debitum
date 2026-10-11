@@ -7,3 +7,6 @@ data object SplashRoute
 
 @Serializable
 data object BillsRoute
+
+@Serializable
+data object SettingsRoute

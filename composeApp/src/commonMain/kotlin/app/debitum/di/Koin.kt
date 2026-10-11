@@ -4,6 +4,7 @@ import app.debitum.data.local.DebitumDatabase
 import app.debitum.data.repository.RoomBillRepository
 import app.debitum.domain.repository.BillRepository
 import app.debitum.ui.bills.BillsViewModel
+import app.debitum.ui.settings.SettingsViewModel
 import org.koin.core.context.startKoin
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.viewModelOf
@@ -18,6 +19,7 @@ val dataModule = module {
 
 val viewModelModule = module {
     viewModelOf(::BillsViewModel)
+    viewModelOf(::SettingsViewModel)
 }
 
 val appModules: List<Module> = listOf(platformModule, dataModule, viewModelModule)
