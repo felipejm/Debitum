@@ -1,6 +1,7 @@
 package app.debitum.ui.bills
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -202,23 +203,20 @@ private fun MonthSelector(
 @Composable
 private fun SummaryCard(uiState: BillsUiState, modifier: Modifier = Modifier) {
     val shape = RoundedCornerShape(32.dp)
+    val shadow = if (DebitumColors.isDark) Color.Black.copy(alpha = 0.6f) else DebitumColors.Card.copy(alpha = 0.28f)
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .shadow(
-                elevation = 24.dp,
-                shape = shape,
-                ambientColor = DebitumColors.Card.copy(alpha = 0.28f),
-                spotColor = DebitumColors.Card.copy(alpha = 0.28f),
-            )
+            .shadow(elevation = 24.dp, shape = shape, ambientColor = shadow, spotColor = shadow)
             .background(DebitumColors.Card, shape)
+            .border(1.dp, DebitumColors.CardBorder, shape)
             .padding(24.dp),
     ) {
         Text(
             text = stringResource(Res.string.bills_total_paid),
             fontSize = 12.sp,
             fontWeight = FontWeight.Medium,
-            color = Color.White.copy(alpha = 0.6f),
+            color = DebitumColors.OnCardMuted,
         )
         Spacer(Modifier.height(4.dp))
         Text(
@@ -226,14 +224,14 @@ private fun SummaryCard(uiState: BillsUiState, modifier: Modifier = Modifier) {
             fontSize = 30.sp,
             fontWeight = FontWeight.ExtraBold,
             letterSpacing = (-0.5).sp,
-            color = Color.White,
+            color = DebitumColors.OnCard,
         )
         Spacer(Modifier.height(16.dp))
         when {
             uiState.pendingCount == 0 -> Pill(
                 text = stringResource(Res.string.bills_all_clear),
                 textColor = DebitumColors.AccentOnCard,
-                background = DebitumColors.Accent.copy(alpha = 0.2f),
+                background = DebitumColors.CardPillBackground,
             )
             uiState.overdueCount > 0 -> Pill(
                 text = "• " +
@@ -241,12 +239,12 @@ private fun SummaryCard(uiState: BillsUiState, modifier: Modifier = Modifier) {
                     " · " +
                     pluralStringResource(Res.plurals.bills_overdue_count, uiState.overdueCount, uiState.overdueCount),
                 textColor = DebitumColors.OverdueOnCard,
-                background = DebitumColors.Overdue.copy(alpha = 0.2f),
+                background = DebitumColors.OverdueSoft,
             )
             else -> Pill(
                 text = "• " + pluralStringResource(Res.plurals.bills_pending_count, uiState.pendingCount, uiState.pendingCount),
                 textColor = DebitumColors.AccentOnCard,
-                background = DebitumColors.Accent.copy(alpha = 0.2f),
+                background = DebitumColors.CardPillBackground,
             )
         }
     }
@@ -269,7 +267,8 @@ private fun SectionHeader(onNewBill: () -> Unit, modifier: Modifier = Modifier) 
         Row(
             modifier = Modifier
                 .clip(CircleShape)
-                .background(DebitumColors.Accent.copy(alpha = 0.2f))
+                .background(DebitumColors.Accent.copy(alpha = if (DebitumColors.isDark) 0.15f else 0.2f))
+                .border(1.dp, DebitumColors.Accent.copy(alpha = if (DebitumColors.isDark) 0.2f else 0f), CircleShape)
                 .clickable(onClick = onNewBill)
                 .padding(horizontal = 12.dp, vertical = 6.dp),
             verticalAlignment = Alignment.CenterVertically,
@@ -300,7 +299,8 @@ private fun BillRow(bill: Bill, today: LocalDate, onClick: () -> Unit, modifier:
         Box(
             modifier = Modifier
                 .size(44.dp)
-                .background(DebitumColors.Surface, RoundedCornerShape(16.dp)),
+                .background(DebitumColors.Surface, RoundedCornerShape(16.dp))
+                .border(1.dp, DebitumColors.CardBorder, RoundedCornerShape(16.dp)),
             contentAlignment = Alignment.Center,
         ) {
             Text(
@@ -350,7 +350,7 @@ private fun BillRow(bill: Bill, today: LocalDate, onClick: () -> Unit, modifier:
                 overdue -> StatusPill(
                     text = stringResource(Res.string.bill_status_overdue),
                     textColor = DebitumColors.OverdueStrong,
-                    background = DebitumColors.Accent.copy(alpha = 0.2f),
+                    background = if (DebitumColors.isDark) DebitumColors.OverdueSoft else DebitumColors.Accent.copy(alpha = 0.2f),
                 )
             }
         }

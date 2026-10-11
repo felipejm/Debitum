@@ -43,6 +43,13 @@ class DebitumPalette(
     val gearBackground: Color,
     val gearBorder: Color,
     val gearIcon: Color,
+    val onCard: Color,
+    val onCardMuted: Color,
+    val cardBorder: Color,
+    val cardPillBackground: Color,
+    val fieldBackground: Color,
+    val secondaryBackground: Color,
+    val overdueSoft: Color,
     val isDark: Boolean,
 )
 
@@ -70,33 +77,47 @@ private val LightPalette = DebitumPalette(
     gearBackground = Color(0xFFFFFFFF),
     gearBorder = Color(0xFFF3F4F6),
     gearIcon = Color(0xFF291E34),
+    onCard = Color.White,
+    onCardMuted = Color(0x99FFFFFF),
+    cardBorder = Color.Transparent,
+    cardPillBackground = Color(0x33DD785D),
+    fieldBackground = Color.White,
+    secondaryBackground = Color(0xB3FFFFFF),
+    overdueSoft = Color(0x33EF4444),
     isDark = false,
 )
 
 private val DarkPalette = DebitumPalette(
-    background = Color(0xFF141117),
-    card = Color(0xFF2C2036),
-    accent = Color(0xFFDD785D),
-    accentOnCard = Color(0xFFFFA084),
-    textDark = Color(0xFFF4F1F6),
-    textMuted = Color(0xFF9B93A6),
-    textSecondary = Color(0xFFC8C0D1),
-    surface = Color(0xFF221C29),
-    sheetBackground = Color(0xFF1C1722),
-    handle = Color(0xFF4A4254),
-    closeButton = Color(0xFF2A2432),
-    fieldBorder = Color(0xFF3A3344),
-    dangerSoft = Color(0xFF3A2428),
-    paid = Color(0xFF34D399),
-    paidStrong = Color(0xFF6EE7B7),
-    paidSoft = Color(0xFF14352C),
+    background = Color(0xFF161B22),
+    card = Color(0xFF1E2633),
+    accent = Color(0xFF10B981),
+    accentOnCard = Color(0xFF34D399),
+    textDark = Color(0xFFF0F6FC),
+    textMuted = Color(0xFF8B949E),
+    textSecondary = Color(0xFF8B949E),
+    surface = Color(0xFF1C2128),
+    sheetBackground = Color(0xFF1C2128),
+    handle = Color(0xFF30363D),
+    closeButton = Color(0xFF1E2633),
+    fieldBorder = Color(0xFF30363D),
+    dangerSoft = Color(0xFF3F1D24),
+    paid = Color(0xFF10B981),
+    paidStrong = Color(0xFF34D399),
+    paidSoft = Color(0xFF064E3B),
     paidOnCard = Color(0xFF34D399),
-    overdue = Color(0xFFF87171),
-    overdueStrong = Color(0xFFFB7185),
-    overdueOnCard = Color(0xFFFF8A8A),
-    gearBackground = Color(0xFF221C29),
-    gearBorder = Color(0xFF3A3344),
-    gearIcon = Color(0xFFF4F1F6),
+    overdue = Color(0xFFF85149),
+    overdueStrong = Color(0xFFFF7B72),
+    overdueOnCard = Color(0xFFFFA198),
+    gearBackground = Color(0xFF1C2128),
+    gearBorder = Color(0xFF30363D),
+    gearIcon = Color(0xFFF0F6FC),
+    onCard = Color(0xFFF0F6FC),
+    onCardMuted = Color(0xFF8B949E),
+    cardBorder = Color(0xFF30363D),
+    cardPillBackground = Color(0xFF064E3B),
+    fieldBackground = Color(0xFF1C2128),
+    secondaryBackground = Color(0xFF1C2128),
+    overdueSoft = Color(0xFF3F1D24),
     isDark = true,
 )
 
@@ -126,6 +147,13 @@ object DebitumColors {
     val GearBackground: Color @Composable get() = LocalDebitumColors.current.gearBackground
     val GearBorder: Color @Composable get() = LocalDebitumColors.current.gearBorder
     val GearIcon: Color @Composable get() = LocalDebitumColors.current.gearIcon
+    val OnCard: Color @Composable get() = LocalDebitumColors.current.onCard
+    val OnCardMuted: Color @Composable get() = LocalDebitumColors.current.onCardMuted
+    val CardBorder: Color @Composable get() = LocalDebitumColors.current.cardBorder
+    val CardPillBackground: Color @Composable get() = LocalDebitumColors.current.cardPillBackground
+    val FieldBackground: Color @Composable get() = LocalDebitumColors.current.fieldBackground
+    val SecondaryBackground: Color @Composable get() = LocalDebitumColors.current.secondaryBackground
+    val OverdueSoft: Color @Composable get() = LocalDebitumColors.current.overdueSoft
     val isDark: Boolean @Composable get() = LocalDebitumColors.current.isDark
 
     fun avatarLetter(name: String): Color {

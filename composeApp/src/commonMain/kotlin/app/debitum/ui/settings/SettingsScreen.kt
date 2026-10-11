@@ -1,6 +1,7 @@
 package app.debitum.ui.settings
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -106,6 +107,7 @@ private fun DarkModeRow(checked: Boolean, onCheckedChange: (Boolean) -> Unit) {
             .fillMaxWidth()
             .clip(RoundedCornerShape(24.dp))
             .background(DebitumColors.Surface)
+            .border(1.dp, DebitumColors.CardBorder, RoundedCornerShape(24.dp))
             .clickable { onCheckedChange(!checked) }
             .padding(16.dp),
         verticalAlignment = Alignment.CenterVertically,

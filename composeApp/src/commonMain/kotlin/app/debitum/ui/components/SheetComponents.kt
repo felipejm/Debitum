@@ -212,7 +212,7 @@ fun FieldContainer(
             .fillMaxWidth()
             .shadow(1.dp, shape, ambientColor = Color.Black.copy(alpha = 0.05f), spotColor = Color.Black.copy(alpha = 0.05f))
             .clip(shape)
-            .background(Color.White)
+            .background(DebitumColors.FieldBackground)
             .border(1.dp, DebitumColors.FieldBorder, shape)
             .then(if (onClick != null) Modifier.clickable(onClick = onClick) else Modifier)
             .padding(horizontal = 14.dp, vertical = 12.dp),
@@ -360,7 +360,7 @@ fun SecondaryButton(text: String, onClick: () -> Unit) {
             .fillMaxWidth()
             .height(48.dp)
             .clip(shape)
-            .background(Color.White.copy(alpha = 0.7f))
+            .background(DebitumColors.SecondaryBackground)
             .border(1.dp, DebitumColors.FieldBorder, shape)
             .clickable(onClick = onClick),
         contentAlignment = Alignment.Center,
